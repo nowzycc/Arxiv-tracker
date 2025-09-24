@@ -1,5 +1,10 @@
 name: arxiv-daily
 
+permissions:
+  contents: read          # 默认就有的
+  actions: read           # 允许读变量/密钥元数据
+  secrets: read           # 显式声明读 secret
+  
 on:
   schedule:
     - cron: "0 1 * * *"   # 每天 01:00 UTC 运行（新加坡时间约 09:00）
