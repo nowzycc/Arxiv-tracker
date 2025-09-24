@@ -25,3 +25,13 @@ jobs:
         with:
           name: arxiv-results
           path: outputs/**
+      - name: 检查 GitHub 到底认不认这些变量
+        run: |
+          gh api -H "Accept: application/vnd.github+json" \
+            /repos/${{ github.repository }}/actions/variables/EMAIL_TO \
+            --jq '.name + "=" + .value' || echo "❌ 仓库级变量 EMAIL_TO 不存在"
+          gh api -H "Accept: application/vnd.github+json" \
+            /repos/${{ github.repository }}/actions/secrets/OPENAI_COMPAT_API_KEY \
+            --jq '.name + " exists"' || echo "❌ 仓库级密钥 OPENAI_COMPAT_API_KEY 不存在"
+        env:
+          GH_TOKEN: ${{ github.token }}
