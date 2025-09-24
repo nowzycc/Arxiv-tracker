@@ -28,6 +28,13 @@ jobs:
       TZ: Asia/Shanghai         # 站点/邮件时间戳按北京时间显示
 
     steps:
+      - name: Dump env & vars & secrets
+        run: |
+          echo "=== 所有环境变量 ==="
+          env | sort
+          echo "=== 尝试读取自定义变量 ==="
+          echo "vars.EMAIL_TO: ${{ vars.EMAIL_TO }}"
+          echo "secrets.OPENAI_COMPAT_API_KEY: ${{ secrets.OPENAI_COMPAT_API_KEY }}"
       - name: Checkout
         uses: actions/checkout@v4
 
